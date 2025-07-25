@@ -3,23 +3,20 @@
 This repository presents a robust Python-based solution, implemented as a Jupyter Notebook, designed to convert conventional 2D video footage into immersive 3D anaglyph videos. This transformation is achieved through a sophisticated pipeline involving per-frame depth estimation, subsequent generation of stereoscopic image pairs, and their final synthesis into an anaglyph format.
 Table of Contents
 
-    Project Overview
+Project Overview
 
-    Methodology
+Methodology
 
-    Getting Started
+Getting Started
 
-        Prerequisites
+Prerequisites
 
-        Installation
+Installation
 
-        Usage Guide
+Usage Guide
 
-    Expected Output
+Expected Output
 
-    Contributing
-
-    License
 
 Project Overview
 
@@ -86,5 +83,8 @@ Expected Output
 
 Upon successful execution, the script will produce an output_3d_video.mp4 file, located within the same directory as the notebook. This resultant video, when viewed with appropriate red-cyan anaglyph glasses, will exhibit the intended three-dimensional effect.
 Contributing
+
+We welcome and encourage contributions to this project. Should you identify potential enhancements, bug fixes, or new feature implementations, please feel free to open an issue or submit a pull request.
+License
 
 This project is distributed under the terms of the MIT License, ensuring open access and flexibility for use and modification.
