@@ -1,124 +1,90 @@
-# 3D Video Generation with Python and Machine Learning
+3D Video Generation from 2D Video
 
-## Project Overview
-This project demonstrates the creation of a 3D video using Python, leveraging libraries like `matplotlib` for 3D visualization and `opencv-python` for video processing. The video features a rotating 3D cube, generated in a Kaggle notebook environment. The project showcases basic 3D animation techniques and provides a foundation for incorporating machine learning models, such as TripoSR, for advanced 3D model generation from 2D images. The code is designed to run seamlessly on Kaggle and is version-controlled on GitHub for collaboration and sharing.
+This repository presents a robust Python-based solution, implemented as a Jupyter Notebook, designed to convert conventional 2D video footage into immersive 3D anaglyph videos. This transformation is achieved through a sophisticated pipeline involving per-frame depth estimation, subsequent generation of stereoscopic image pairs, and their final synthesis into an anaglyph format.
+Table of Contents
 
-## Features
-- Generates a 3D rotating cube animation using `matplotlib`.
-- Compiles animation frames into a video file (`3d_cube_video.mp4`) using `opencv-python`.
-- Optimized for Kaggle’s notebook environment with minimal dependencies.
-- Includes optional guidance for integrating machine learning with TripoSR for 3D model generation.
-- Versioned on GitHub with a clear workflow for reproducibility.
+    Project Overview
 
-## Prerequisites
-To run this project, ensure you have the following:
-- A [Kaggle](https://www.kaggle.com) account with a verified phone number (for GPU access, if needed).
-- A [GitHub](https://github.com) account for version control.
-- Basic familiarity with Python and Jupyter notebooks.
+    Methodology
 
-### Required Python Libraries
-- `matplotlib` - For 3D plotting and visualization.
-- `numpy` - For numerical computations.
-- `opencv-python` - For video processing.
-- (Optional) `torch`, `torchvision`, `triposr` - For machine learning-based 3D model generation.
+    Getting Started
 
-These libraries are installed automatically in the Kaggle notebook (see [Usage](#usage)).
+        Prerequisites
 
-## Installation
-1. **Set Up Kaggle Notebook**:
-   - Log in to [Kaggle](https://www.kaggle.com) and create a new notebook (`Code` > `New Notebook`).
-   - Ensure the language is set to Python in the notebook settings.
+        Installation
 
-2. **Install Dependencies**:
-   - Add and run the following code in a notebook cell to install required libraries:
-     ```bash
-     !pip install opencv-python matplotlib numpy
-     ```
-   - For machine learning enhancements (optional, requires GPU):
-     ```bash
-     !pip install torch torchvision
-     !pip install git+https://github.com/stability-AI/triposr.git
-     ```
+        Usage Guide
 
-3. **Clone the Repository** (optional, for local development):
-   - Clone this repository to your local machine:
-     ```bash
-     git clone https://github.com/your-username/3d-video-project.git
-     cd 3d-video-project
-     ```
+    Expected Output
 
-## Usage
-1. **Run the Notebook**:
-   - Open the Kaggle notebook (`3d_cube_animation.ipynb`) from this repository or create a new one.
-   - Copy and paste the code from `3d_cube_animation.py` (available in this repository) into the notebook.
-   - Run all cells sequentially to:
-     - Generate 100 frames of a rotating 3D cube.
-     - Compile frames into a video (`/kaggle/working/3d_cube_video.mp4`).
-   - Download the output video from Kaggle’s “Output” tab.
+    Contributing
 
-2. **Optional: Machine Learning Integration**:
-   - Upload a 2D image to Kaggle (e.g., `/kaggle/input/your-dataset/image.png`).
-   - Use the TripoSR model to generate a 3D mesh (requires GPU and additional setup; see notebook comments for details).
-   - Note: TripoSR integration is experimental and may require external tools like Blender for full animation.
+    License
 
-3. **View the Output**:
-   - The generated video (`3d_cube_video.mp4`) is saved in `/kaggle/working/`.
-   - Download and view it locally or share it directly from Kaggle.
+Project Overview
 
-## Project Structure
-```plaintext
-3d-video-project/
-├── 3d_cube_animation.ipynb  # Kaggle notebook with the main code
-├── 3d_cube_video.mp4       # Output video (generated on Kaggle)
-├── README.md               # This file
-└── LICENSE                 # MIT License
-```
+This project harnesses advanced deep learning techniques for monocular depth estimation to facilitate the conversion of any standard 2D video input into a 3D anaglyph video. Anaglyph 3D imagery, when viewed through specialized anaglyph glasses (typically red-cyan or red-blue), creates the perception of three-dimensionality. This illusion of depth is meticulously engineered by presenting distinct visual information to each eye.
+Methodology
 
-## Pushing to GitHub
-1. **Link Kaggle to GitHub**:
-   - In the Kaggle notebook, go to `File` > `Link to GitHub` and authorize your GitHub account.
-   - Save the notebook to commit it to your repository.
+The conversion process is systematically executed through the following key stages:
 
-2. **Manually Upload Video**:
-   - Download `3d_cube_video.mp4` from Kaggle’s “Output” tab.
-   - Add it to your local repository:
-     ```bash
-     git add 3d_cube_video.mp4
-     git commit -m "Add generated 3D video"
-     git push origin main
-     ```
+    Dependency Management: Essential Python libraries, including torch, torchvision, opencv-python-headless, numpy, and timm, are automatically installed to ensure a self-contained execution environment.
 
-3. **Verify**:
-   - Check your GitHub repository to ensure the notebook and video are uploaded.
+    Video Ingestion: The system facilitates the upload of a user-specified 2D video file, supporting common formats such as .mp4 and .avi.
 
-## Example Output
-The project generates a video of a rotating 3D cube, saved as `3d_cube_video.mp4`. The animation consists of 100 frames at 30 FPS, showing a blue wireframe cube rotating around the y-axis.
+    Frame Discretization: The uploaded video stream is meticulously decomposed into its constituent individual frames. Each frame is then persistently stored as a high-quality image file.
 
-## Limitations
-- **Kaggle Constraints**: Limited disk space and memory in Kaggle’s free tier may restrict large-scale animations.
-- **TripoSR**: Requires a GPU and a suitable input image. Animation of TripoSR meshes is not fully supported in Kaggle due to rendering limitations.
-- **GitHub File Size**: Videos larger than 100MB require Git LFS or external hosting (e.g., Google Drive).
+    Depth Estimation via MiDaS: For every extracted frame, the MiDaS (Multi-Dataset Augmented Depth Estimation) model is employed to generate a precise depth map. MiDaS represents a cutting-edge approach in the field of monocular depth estimation, providing highly accurate depth information from a single 2D image.
 
-## Contributing
-Contributions are welcome! To contribute:
-1. Fork this repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Make your changes and commit (`git commit -m "Add your feature"`).
-4. Push to your fork (`git push origin feature/your-feature`).
-5. Open a pull request with a clear description of your changes.
+    Stereoscopic Pair Synthesis: Utilizing the original frame and its corresponding estimated depth map, a stereoscopic image pair (comprising distinct left and right eye views) is computationally generated. This crucial step simulates the natural parallax effect inherent to 3D perception by intelligently displacing pixels based on their calculated depth values.
 
-Please adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) and ensure code is well-documented.
+    Anaglyph Image Composition: The synthesized left and right eye views are subsequently combined to form an anaglyph image. In the context of red-cyan anaglyphs, the red color channel is typically derived from the left eye's image, while the green and blue channels are sourced from the right eye's image, creating the characteristic visual separation.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+    Video Reconstruction: All the individually processed anaglyph frames are then sequentially compiled and encoded back into a cohesive video file, preserving the original video's frame rate.
 
-## Acknowledgments
-- [Kaggle](https://www.kaggle.com) for providing a free cloud-based notebook environment.
-- [Matplotlib](https://matplotlib.org) and [OpenCV](https://opencv.org) for visualization and video processing.
-- [StabilityAI’s TripoSR](https://github.com/stability-AI/triposr) for 3D model generation inspiration.
+    Output Provision: The final 3D anaglyph video is made available for direct download, enabling immediate access to the transformed content.
 
-## Contact
-For questions or feedback, open an issue on this repository or contact [your-email@example.com](mailto:your-email@example.com).
+Getting Started
 
----
-*Generated on May 21, 2025*
+To replicate and utilize this code, it is highly recommended to execute the Jupyter Notebook within a Google Colaboratory environment. This platform offers the requisite GPU acceleration and a pre-configured computational setting, streamlining the execution process.
+Prerequisites
+
+    A Google Colaboratory account (freely accessible).
+
+    A 2D video file (e.g., .mp4, .avi) intended for 3D conversion.
+
+Installation
+
+Local installation is not a prerequisite when leveraging Google Colab, as the notebook script autonomously manages all necessary dependency installations upon execution.
+Usage Guide
+
+    Accessing the Notebook via Google Colab:
+
+        Navigate to the Google Colab platform: colab.research.google.com.
+
+        Upload the 3d-video-generation.ipynb notebook file to your Colab workspace.
+
+    Sequential Cell Execution:
+
+        Step 1: Install dependencies: Execute the initial cell to install all required Python libraries.
+
+        Step 2: Upload video: Run this cell and adhere to the on-screen prompts to upload your desired 2D video file.
+
+        Step 3: Extract frames: Execute this cell to initiate the extraction of individual frames from your uploaded video.
+
+        Step 4: Depth estimation with MiDaS: This cell will load the pre-trained MiDaS model and proceed to generate depth maps for every extracted frame. The execution time for this step is contingent upon the video's duration and the allocated Colab runtime resources.
+
+        Step 5: Create stereoscopic pairs: This cell will generate the distinct left and right eye views for each processed frame.
+
+        Step 6: Create anaglyph images: This cell orchestrates the combination of the stereoscopic pairs into the final anaglyph image format.
+
+        Step 7: Reconstruct video: This cell performs the compilation of all generated anaglyph frames into a new, single 3D video file.
+
+        Step 8: Download the output video: The concluding cell will furnish a direct link for downloading the newly created 3D anaglyph video.
+
+Expected Output
+
+Upon successful execution, the script will produce an output_3d_video.mp4 file, located within the same directory as the notebook. This resultant video, when viewed with appropriate red-cyan anaglyph glasses, will exhibit the intended three-dimensional effect.
+Contributing
+
+This project is distributed under the terms of the MIT License, ensuring open access and flexibility for use and modification.
