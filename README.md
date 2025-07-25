@@ -84,7 +84,5 @@ Expected Output
 Upon successful execution, the script will produce an output_3d_video.mp4 file, located within the same directory as the notebook. This resultant video, when viewed with appropriate red-cyan anaglyph glasses, will exhibit the intended three-dimensional effect.
 Contributing
 
-We welcome and encourage contributions to this project. Should you identify potential enhancements, bug fixes, or new feature implementations, please feel free to open an issue or submit a pull request.
-License
 
 This project is distributed under the terms of the MIT License, ensuring open access and flexibility for use and modification.
